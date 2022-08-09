@@ -1,0 +1,85 @@
+#!/bin/bash
+
+readonly COLOR_RED='\033[0;31m'
+readonly COLOR_GREEN='\033[0;32m'
+readonly COLOR_BLUE='\033[0;34'
+readonly COLOR_YELLOW='\033[1;33'
+readonly COLOR_CYAN='\033[0;36'
+readonly COLOR_RESET='\033[0m'
+
+readonly SELF=$0
+readonly SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+readonly TOPDIR=$SCRIPT_DIR/..
+readonly BUILD_DIR=$TOPDIR/build
+readonly TEST_DIR=$TOPDIR/tests
+
+succeded="0"
+failed="0"
+
+function succeed() {
+   ((++succeded))
+   echo -e "[  ${COLOR_GREEN}OK${COLOR_RESET}  ] $1"
+ }
+
+ function fail() {
+   ((++failed))
+   echo -e "[ ${COLOR_RED}FAIL${COLOR_RESET} ] $1 ($2)"
+ }
+
+ function summary() {
+   echo -e "Succeded: ${COLOR_GREEN}${succeded}${COLOR_RESET}"
+   echo -e "Failed:   ${COLOR_RED}${failed}${COLOR_RESET}"
+ }
+
+function expect_ret() {
+  local expected=$1
+  local file=$2
+  local args=${@:3}
+  local ret
+  local out
+
+  out=`$BUILD_DIR/bin/$file $args 2>&1`
+  ret=$?
+
+  if [ "$ret" != "$expected" ]; then
+    fail $file $ret
+  else
+    succeed $file
+  fi
+}
+
+function expect_out() {
+  local expected=$1
+  local file=$2
+  local args=${@:3}
+  local ret
+  local out
+
+  out=`$BUILD_DIR/bin/$file $args 2>&1`
+  ret=$?
+
+  if [ "$out" != "$expected" ]; then
+    fail $file $ret
+  else
+    succeed $file
+  fi
+}
+
+# Tests
+expect_ret 0 async
+expect_ret 0 async_void
+expect_ret 0 async_pool
+expect_ret 0 async_delayed
+expect_ret 0 pool
+expect_ret 0 lock
+expect_ret 0 locked
+expect_ret 0 future
+expect_ret 0 executor
+expect_ret 0 type_utils
+
+summary
+
+if [ "$failed" != "0" ]; then
+  exit 1
+fi
+

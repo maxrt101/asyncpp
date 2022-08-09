@@ -20,6 +20,12 @@ inline void await<void>(Future<void> future) {
   future.get();
 }
 
+template <typename T, typename... F>
+inline void await(T future, F... rest) {
+  await(future);
+  await(rest...);
+}
+
 template <typename F, typename... Args>
 inline auto async(F f, Args... args) {
   Future<decltype(return_type(f))> result;
@@ -31,7 +37,7 @@ inline auto async(F f, Args... args) {
     } else {
       result.set(f(args...));
     }
-  }, args...);
+  });
 
   t.detach();
 

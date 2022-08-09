@@ -27,6 +27,10 @@ class Locked {
     return *this;
   }
 
+  inline T& getValue() {
+    return m_value;
+  }
+
   inline T& get() {
     auto sl = m_lock.lockScope();
     return m_value;
