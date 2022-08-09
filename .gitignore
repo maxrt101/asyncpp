@@ -1,0 +1,18 @@
+
+# C/C++
+*.o
+*.so
+*.a
+*.out
+a.out
+
+# Editor
+.vscode
+.*.sw*
+.sw*
+
+# Project Specific
+build
+
+# MacOS
+.DS_Store
