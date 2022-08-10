@@ -24,7 +24,7 @@ prepare:
 	mkdir -p $(BUILD_DIR)
 	mkdir -p $(BUILD_DIR)/bin
 	mkdir -p $(PREFIX)
-	rm -rf $(PREFIX)/include/asyncpp
 	mkdir -p $(PREFIX)/include
+	rm -rf $(PREFIX)/include/asyncpp
 
 $(V).SILENT:

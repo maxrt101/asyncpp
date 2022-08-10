@@ -1,6 +1,9 @@
 # Async CPP
 Some utilities for async programming in C++ that I use.  
-Built on top of standard multithreading libraries (`thread`, `atomic`, `condition_variable`, etc).  
+Built on top of standard concurrency support headers (`thread`, `atomic`, `condition_variable`, etc).  
+The main rationale behind this library (aside from just collecting everything that I have ever written on multithreading) is the ease of use.  
+Standard library is often cryptic, and while it allows for far greater configuration, if you haven't used it for some time - you will surely need to look into the docs.  
+Asyncpp, on the other hand, aims to be straightforward and easy to use.  
 
 
 ## How to install
@@ -20,7 +23,7 @@ The headers will be installed into `/path/to/installation/dir/include/asyncpp`
     - Interval
     - Single threaded 
     - Multi threaded 
- - Futures
- - Locks
+ - Custom Future
+ - Lock (also provides scoped lock)
  - Locked (couples resource and a lock)
- - Convinience functions such as sleep()
+ - Convinience functions such as `sleep`
