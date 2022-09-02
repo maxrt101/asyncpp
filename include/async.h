@@ -6,7 +6,6 @@
 
 #include <asyncpp/pool.h>
 #include <asyncpp/future.h>
-#include <asyncpp/type_utils.h>
 
 namespace asyncpp {
 
@@ -28,10 +27,10 @@ inline void await(T future, F... rest) {
 
 template <typename F, typename... Args>
 inline auto async(F f, Args... args) {
-  Future<decltype(return_type(f))> result;
+  Future<decltype(f(args...))> result;
 
   auto t = std::thread([result, f, args...]() {
-    if constexpr (std::is_same_v<decltype(return_type(f)), void>) {
+    if constexpr (std::is_same_v<decltype(f(args...)), void>) {
       f(args...);
       result.set();
     } else {
@@ -46,10 +45,10 @@ inline auto async(F f, Args... args) {
 
 template <typename T, typename F, typename... Args>
 inline auto async_pool(ThreadPool<T>& pool, F f, Args... args) {
-  Future<decltype(return_type(f))> result;
+  Future<decltype(f(args...))> result;
 
   pool.addTask([result, f, args...]() {
-    if constexpr (std::is_same_v<decltype(return_type(f)), void>) {
+    if constexpr (std::is_same_v<decltype(f(args...)), void>) {
       f(args...);
       result.set();
     } else {
@@ -62,11 +61,11 @@ inline auto async_pool(ThreadPool<T>& pool, F f, Args... args) {
 
 template <typename Rep, typename Period, typename F, typename... Args>
 inline auto async_delayed(std::chrono::duration<Rep, Period> tp, F f, Args... args) {
-  Future<decltype(return_type(f))> result;
+  Future<decltype(f(args...))> result;
 
   auto t = std::thread([result, tp, f, args...]() {
     std::this_thread::sleep_for(tp);
-    if constexpr (std::is_same_v<decltype(return_type(f)), void>) {
+    if constexpr (std::is_same_v<decltype(f(args...)), void>) {
       f(args...);
       result.set();
     } else {

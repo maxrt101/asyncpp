@@ -88,6 +88,12 @@ class Future {
     notifyResultReady();
   }
 
+  inline void wait() const {
+    if (!isReady()) {
+      waitForResult();
+    }
+  }
+
  private:
   inline void waitForResult() const {
     auto lock = std::unique_lock<std::mutex>(m_state->lock.getMutex());
@@ -173,6 +179,12 @@ class Future<void> {
   inline void set() const {
     auto sl = m_state->lock.lockScope();
     notifyResultReady();
+  }
+
+  inline void wait() const {
+    if (!isReady()) {
+      waitForResult();
+    }
   }
 
  private:

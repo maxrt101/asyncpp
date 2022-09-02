@@ -24,7 +24,7 @@ int main(int argc, char ** argv) {
   auto beginTime = std::chrono::system_clock::now();
 
   auto f1 = async(compute, 1);
-  auto f2 =async(computeScoped, 2);
+  auto f2 = async(computeScoped, 2);
 
   sleep(200ms); // Give time for async to start
 
@@ -34,7 +34,9 @@ int main(int argc, char ** argv) {
 
   float time = static_cast<std::chrono::duration<float>>(endTime - beginTime).count();
 
-  printf("time: %f\n", time);
+  sleep(200ms); // ????? with: 1/11? - without: 3/7
+
+  printf("time: %f %d\n", time, resource.get());
 
   return resource.get() != 20 || time < 3;
 }

@@ -32,12 +32,10 @@ class Locked {
   }
 
   inline T& get() {
-    auto sl = m_lock.lockScope();
     return m_value;
   }
 
   inline const T& get() const {
-    auto sl = m_lock.lockScope();
     return m_value;
   }
 

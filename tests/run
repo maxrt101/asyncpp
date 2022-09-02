@@ -75,7 +75,6 @@ expect_ret 0 lock
 expect_ret 0 locked
 expect_ret 0 future
 expect_ret 0 executor
-expect_ret 0 type_utils
 
 summary
 
