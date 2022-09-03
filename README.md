@@ -26,4 +26,5 @@ The headers will be installed into `/path/to/installation/dir/include/asyncpp`
  - Custom Future
  - Lock (also provides scoped lock)
  - Locked (couples resource and a lock)
+ - Multiprocessing heplers (`launch`/`launchSync`/`launchAsync` functions)
  - Convinience functions such as `sleep`
