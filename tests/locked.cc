@@ -34,7 +34,7 @@ int main(int argc, char ** argv) {
 
   float time = static_cast<std::chrono::duration<float>>(endTime - beginTime).count();
 
-  sleep(200ms); // ????? with: 1/11? - without: 3/7
+  sleep(200ms); // FIXME: with: 1/11? - without: 3/7
 
   printf("time: %f %d\n", time, resource.get());
 
