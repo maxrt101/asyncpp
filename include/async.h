@@ -44,7 +44,7 @@ inline auto async(F f, Args... args) {
 }
 
 template <typename T, typename F, typename... Args>
-inline auto async_pool(ThreadPool<T>& pool, F f, Args... args) {
+inline auto asyncPool(ThreadPool<T>& pool, F f, Args... args) {
   Future<decltype(f(args...))> result;
 
   pool.addTask([result, f, args...]() {
@@ -60,7 +60,7 @@ inline auto async_pool(ThreadPool<T>& pool, F f, Args... args) {
 }
 
 template <typename Rep, typename Period, typename F, typename... Args>
-inline auto async_delayed(std::chrono::duration<Rep, Period> tp, F f, Args... args) {
+inline auto asyncDelayed(std::chrono::duration<Rep, Period> tp, F f, Args... args) {
   Future<decltype(f(args...))> result;
 
   auto t = std::thread([result, tp, f, args...]() {

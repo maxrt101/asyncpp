@@ -11,7 +11,7 @@ int compute() {
 int main(int argc, char ** argv) {
   auto beginTime = std::chrono::system_clock::now();
 
-  int result = await(async_delayed(2s, compute));
+  int result = await(asyncDelayed(2s, compute));
 
   auto endTime = std::chrono::system_clock::now();
 

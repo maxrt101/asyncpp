@@ -14,8 +14,8 @@ int main(int argc, char ** argv) {
 
   auto beginTime = std::chrono::system_clock::now();
 
-  auto f1 = async_pool(pool, compute, 10);
-  auto f2 = async_pool(pool, compute, 20);
+  auto f1 = asyncPool(pool, compute, 10);
+  auto f2 = asyncPool(pool, compute, 20);
 
   int res1 = f1.get(), res2 = f2.get();
 
